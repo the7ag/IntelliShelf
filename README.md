@@ -1,49 +1,35 @@
-# IntelliShelf
+# IntelliShelf API
 
-IntelliShelf is a modern digital library management system that helps users organize, track, and manage their book collections efficiently. Whether you're a book enthusiast, student, or professional, IntelliShelf provides the tools you need to keep your reading life organized.
-
-![IntelliShelf Logo](assets/logo.png)
+IntelliShelf is a RESTful API for a digital library management system. It provides endpoints for managing books, users, and reading progress.
 
 ## Features
 
 ### Book Management
-- **Add Books**: Easily add new books to your collection with detailed information
-- **Edit Books**: Update book details, cover images, and metadata
-- **Delete Books**: Remove books from your collection when needed
-- **View Book Details**: Access comprehensive information about each book
-- **Search Books**: Find books quickly with powerful search functionality
-- **Filter Books**: Filter your collection by various criteria (genre, author, status, etc.)
+- **Add Books**: Create new book entries with detailed information
+- **Edit Books**: Update book details and metadata
+- **Delete Books**: Remove books from the collection
+- **View Book Details**: Retrieve comprehensive information about each book
+- **Search Books**: Find books with powerful search functionality
+- **Filter Books**: Filter books by various criteria (genre, author, status, etc.)
 
 ### User Management
 - **User Authentication**: Secure login and registration system
-- **User Profiles**: Personalized user profiles with reading preferences
+- **User Profiles**: Manage user profiles with reading preferences
 - **Role-Based Access**: Different permission levels for users and administrators
 
 ### Reading Progress
 - **Reading Status**: Track books as "Want to Read", "Currently Reading", or "Read"
-- **Reading Progress**: Record your progress through books
-- **Reading History**: View your reading history and patterns
+- **Reading Progress**: Record progress through books
+- **Reading History**: View reading history and patterns
 - **Reading Goals**: Set and track reading goals
-
-### Social Features
-- **Book Reviews**: Write and share reviews of books you've read
-- **Rating System**: Rate books on a scale of 1-5 stars
-- **Reading Lists**: Create and share custom reading lists
-- **Recommendations**: Get personalized book recommendations based on your preferences
-
-### Advanced Features
-- **Book Cover Recognition**: Automatically fetch book covers and details using ISBN scanning
-- **Export/Import**: Export your library data or import from other platforms
-- **Statistics**: View reading statistics and insights
-- **Mobile Responsive**: Access your library from any device
 
 ## Technology Stack
 
 - **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL
+- **Database**: PostgreSQL (hosted on Supabase)
 - **Authentication**: JWT (JSON Web Tokens)
 - **API**: RESTful API architecture
-- **Testing**: Jest, React Testing Library
+- **Testing**: Jest
 - **CI/CD**: Jenkins
 
 ## Getting Started
@@ -52,7 +38,7 @@ IntelliShelf is a modern digital library management system that helps users orga
 
 - Node.js (v14 or higher)
 - npm or yarn
-- PostgreSQL
+- Supabase account
 
 ### Installation
 
@@ -80,7 +66,7 @@ IntelliShelf is a modern digital library management system that helps users orga
    npm run dev
    ```
 
-5. Open your browser and navigate to `http://localhost:3001`
+5. The API will be available at `http://localhost:3001`
 
 ## API Documentation
 
@@ -106,21 +92,15 @@ npm test
 
 ## Deployment
 
-The application can be deployed to various platforms:
-
-- Heroku
-- AWS
-- DigitalOcean
+The API is already deployed and accessible at [https://intellishelf-api.example.com](https://intellishelf-api.example.com)
 
 ## CI/CD Pipeline
 
 IntelliShelf uses Jenkins for continuous integration and deployment:
 
 - **Continuous Integration**: Automated testing and building on every code push
-- **Continuous Deployment**: Automatic deployment to staging and production environments
+- **Continuous Deployment**: Automatic deployment to production environment
 - **Quality Gates**: Code quality checks and security scanning
-- **Environment Management**: Separate configurations for development, staging, and production
-
 
 ## Contributing
 
@@ -134,7 +114,6 @@ IntelliShelf uses Jenkins for continuous integration and deployment:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-
 ## Contact
 
-Project Link: [https://github.com/yourusername/intellishelf](https://github.com/the7ag/intellishelf) 
+Project Link: [https://github.com/the7ag/intellishelf](https://github.com/the7ag/intellishelf) 
