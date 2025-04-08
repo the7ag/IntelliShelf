@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const db = require('./src/config/db'); // Ensure this runs
 const bookRoutes = require('./src/routes/bookRoutes');
+const authRoutes = require('./src/routes/authRoutes');
 
 const PORT = process.env.PORT || 5000;
 
@@ -16,3 +17,4 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use('/api/v1/books', bookRoutes);
+app.use('/api/v1/auth', authRoutes); 
