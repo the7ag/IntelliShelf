@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const db = require('./src/config/db'); // Ensure this runs
+const bookRoutes = require('./src/routes/bookRoutes');
 
 const PORT = process.env.PORT || 5000;
 
@@ -13,3 +14,5 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+app.use(express.json());
+app.use('/api/v1/books', bookRoutes);
