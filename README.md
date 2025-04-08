@@ -39,13 +39,12 @@ IntelliShelf is a modern digital library management system that helps users orga
 
 ## Technology Stack
 
-- **Frontend**: React.js, Redux, Material-UI
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB
+- **Database**: PostgreSQL
 - **Authentication**: JWT (JSON Web Tokens)
 - **API**: RESTful API architecture
 - **Testing**: Jest, React Testing Library
-- **CI/CD**: Jenkins (coming soon)
+- **CI/CD**: Jenkins
 
 ## Getting Started
 
@@ -53,13 +52,13 @@ IntelliShelf is a modern digital library management system that helps users orga
 
 - Node.js (v14 or higher)
 - npm or yarn
-- MongoDB
+- PostgreSQL
 
 ### Installation
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/intellishelf.git
+   git clone https://github.com/the7ag/intellishelf.git
    cd intellishelf
    ```
 
@@ -71,9 +70,9 @@ IntelliShelf is a modern digital library management system that helps users orga
 3. Set up environment variables
    Create a `.env` file in the root directory with the following variables:
    ```
-   PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/intellishelf
-   JWT_SECRET=your_jwt_secret
+   PORT=3001
+   DATABASE_URL=postgresql://postgres.alukijmszwbqlfsxpivz:6ZtWNjOR485J6j9R@aws-0-eu-west-2.pooler.supabase.com:5432/postgres
+   JWT_SECRET="random_String_1234567890"
    ```
 
 4. Start the development server
@@ -81,7 +80,7 @@ IntelliShelf is a modern digital library management system that helps users orga
    npm run dev
    ```
 
-5. Open your browser and navigate to `http://localhost:5000`
+5. Open your browser and navigate to `http://localhost:3001`
 
 ## API Documentation
 
@@ -112,7 +111,6 @@ The application can be deployed to various platforms:
 - Heroku
 - AWS
 - DigitalOcean
-- Vercel (for frontend)
 
 ## CI/CD Pipeline
 
@@ -123,7 +121,6 @@ IntelliShelf uses Jenkins for continuous integration and deployment:
 - **Quality Gates**: Code quality checks and security scanning
 - **Environment Management**: Separate configurations for development, staging, and production
 
-*Note: CI/CD pipeline configuration details will be added in a future update.*
 
 ## Contributing
 
@@ -137,12 +134,7 @@ IntelliShelf uses Jenkins for continuous integration and deployment:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
-
-- [Open Library API](https://openlibrary.org/) for book data
-- [Google Books API](https://developers.google.com/books) for additional book information
-- All contributors and users of IntelliShelf
 
 ## Contact
 
-Project Link: [https://github.com/yourusername/intellishelf](https://github.com/yourusername/intellishelf) 
+Project Link: [https://github.com/yourusername/intellishelf](https://github.com/the7ag/intellishelf) 
