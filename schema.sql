@@ -1,6 +1,5 @@
 -- schema.sql
 
--- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -9,7 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Authors Table
 CREATE TABLE IF NOT EXISTS authors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -17,7 +15,6 @@ CREATE TABLE IF NOT EXISTS authors (
     UNIQUE(name)
 );
 
--- Books Table
 CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -33,11 +30,9 @@ CREATE TABLE IF NOT EXISTS books (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_books_user_id ON books(user_id);
 CREATE INDEX IF NOT EXISTS idx_books_author_id ON books(author_id);
 
--- Function to automatically update 'updated_at' timestamp
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -46,8 +41,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Trigger to update 'updated_at' on books table update
-DROP TRIGGER IF EXISTS set_timestamp ON books; -- Drop existing trigger if necessary
+DROP TRIGGER IF EXISTS set_timestamp ON books; 
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON books
 FOR EACH ROW

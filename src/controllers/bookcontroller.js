@@ -1,17 +1,13 @@
-// src/controllers/bookController.js
 const db = require('../config/db');
 
-// Base error handler for controllers
 const handleControllerError = (res, error, message, statusCode = 500) => {
   console.error(`${message}:`, error);
-  // Avoid leaking detailed errors in production
   const errorMessage = process.env.NODE_ENV === 'production' ? message : error.message;
   res.status(statusCode).json({ message: errorMessage });
 };
 
 exports.getAllBooks = async (req, res) => {
-  // IMPORTANT: Assumes auth middleware adds req.user.id
-  const userId = req.user?.id; // Use optional chaining initially
+  const userId = req.user?.id; 
   if (!userId) return res.status(401).json({ message: 'User ID missing, authorization required.' });
 
   try {
@@ -49,8 +45,6 @@ exports.createBook = async (req, res) => {
   }
 
   try {
-    // Optional: Logic to find or create author if author_name is provided instead of author_id
-    // const findOrCreateAuthor = async (authorName) => { ... }
 
     const query = `
       INSERT INTO books (user_id, title, author_id, isbn, cover_image_url, status)
@@ -59,7 +53,6 @@ exports.createBook = async (req, res) => {
     `;
     const values = [userId, title, author_id, isbn, cover_image_url, status || 'to-read'];
     const { rows } = await db.query(query, values);
-    // Fetch the newly created book with author name
     const newBookResult = await db.query('SELECT b.*, a.name as author_name FROM books b LEFT JOIN authors a ON b.author_id = a.id WHERE b.id = $1', [rows[0].id]);
     res.status(201).json(newBookResult.rows[0]);
   } catch (error) {
@@ -72,15 +65,12 @@ exports.updateBook = async (req, res) => {
   const userId = req.user?.id;
   if (!userId) return res.status(401).json({ message: 'User ID missing, authorization required.' });
 
-  // Fields allowed to be updated
   const { title, author_id, isbn, cover_image_url, status, current_page, start_date, finish_date } = req.body;
 
-  // Basic check if any data was sent
   if (Object.keys(req.body).length === 0) {
      return res.status(400).json({ message: 'No update data provided.' });
   }
 
-  // Dynamically build SET clause for provided fields (safer than manual concatenation)
   const fields = [];
   const values = [];
   let paramIndex = 1;
@@ -98,7 +88,6 @@ exports.updateBook = async (req, res) => {
       return res.status(400).json({ message: 'No valid fields provided for update.' });
   }
 
-  // Add the book ID and user ID for WHERE clause
   values.push(id);
   values.push(userId);
   const idParamIndex = paramIndex++;
@@ -111,14 +100,12 @@ exports.updateBook = async (req, res) => {
       SET ${fields.join(', ')}, updated_at = CURRENT_TIMESTAMP
       WHERE id = $${idParamIndex} AND user_id = $${userIdParamIndex}
       RETURNING id;
-    `; // Only return ID to confirm update
-
+    `; 
     const { rowCount, rows: updatedRows } = await db.query(updateQuery, values);
 
     if (rowCount === 0) {
       return res.status(404).json({ message: 'Book not found, access denied, or no change made' });
     }
-    // Fetch the updated book data to return
     const updatedBookResult = await db.query('SELECT b.*, a.name as author_name FROM books b LEFT JOIN authors a ON b.author_id = a.id WHERE b.id = $1', [updatedRows[0].id]);
 
     res.status(200).json(updatedBookResult.rows[0]);
@@ -137,12 +124,8 @@ exports.deleteBook = async (req, res) => {
     if (rowCount === 0) {
       return res.status(404).json({ message: 'Book not found or access denied' });
     }
-    res.status(204).send(); // No Content
+    res.status(204).send(); 
   } catch (error) {
     handleControllerError(res, error, 'Error deleting book');
   }
 };
-
-// Add Author CRUD endpoints similarly if needed
-// exports.createAuthor = async (req, res) => { ... }
-// exports.getAllAuthors = async (req, res) => { ... }
