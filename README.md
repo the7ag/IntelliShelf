@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
   <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/OpenAPI-6BA539?style=for-the-badge&logo=openapi&logoColor=white" alt="OpenAPI" />
 </div>
 
 ## 📋 Overview
@@ -22,6 +23,7 @@ IntelliShelf is a modern book management system that helps users organize, track
 - 🔄 **API Integration**: RESTful API for frontend integration
 - 🚀 **Docker Support**: Containerized for easy deployment
 - 🔄 **CI/CD Pipeline**: Automated testing and deployment with GitHub Actions
+- 📝 **OpenAPI Documentation**: Comprehensive API documentation
 
 ## 🛠️ Tech Stack
 
@@ -32,6 +34,7 @@ IntelliShelf is a modern book management system that helps users organize, track
 - **CI/CD**: GitHub Actions
 - **Testing**: Jest, Supertest
 - **Linting**: ESLint
+- **API Documentation**: OpenAPI/Swagger
 
 ## 🚀 Getting Started
 
@@ -81,8 +84,33 @@ intellishelf/
 │   └── workflows/        # GitHub Actions workflows
 ├── Dockerfile            # Docker configuration
 ├── schema.sql            # Database schema
+├── openapi.yaml          # OpenAPI documentation
 └── server.js             # Application entry point
 ```
+
+## 📝 API Documentation
+
+The API is fully documented using OpenAPI 3.0. You can view the documentation in several ways:
+
+1. **View the OpenAPI specification**
+   ```bash
+   cat openapi.yaml
+   ```
+
+2. **Use Swagger UI (if enabled)**
+   Visit `http://localhost:3000/api-docs` when the server is running
+
+3. **Generate client libraries**
+   ```bash
+   npx swagger-codegen-cli generate -i openapi.yaml -l javascript -o ./client
+   ```
+
+The API documentation includes:
+- Authentication endpoints
+- Book management endpoints
+- Request/response schemas
+- Error handling
+- Security requirements
 
 ## 🔄 CI/CD Pipeline
 
@@ -158,23 +186,6 @@ This project uses Supabase for PostgreSQL database hosting. To set up Supabase:
 2. Create a new project
 3. Get your database connection string from the project settings
 4. Add the connection string to your environment variables
-
-## 📝 API Documentation
-
-### Authentication Endpoints
-
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login and get JWT token
-- `GET /api/auth/me` - Get current user profile
-
-### Book Endpoints
-
-- `GET /api/books` - Get all books (with pagination)
-- `GET /api/books/:id` - Get a specific book
-- `POST /api/books` - Create a new book
-- `PUT /api/books/:id` - Update a book
-- `DELETE /api/books/:id` - Delete a book
-- `GET /api/books/search` - Search books by title, author, or genre
 
 ## 🧪 Testing
 
