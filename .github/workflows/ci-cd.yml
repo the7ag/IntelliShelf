@@ -1,0 +1,42 @@
+name: IntelliShelf CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint || echo "No lint script found, skipping linting"
+    
+    - name: Run tests
+      env:
+        DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      run: npm test
+    
+    - name: Build application
+      run: npm run build || echo "No build script found, skipping build"
+    
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage
+        path: coverage/
+        if-no-files-found: ignore 

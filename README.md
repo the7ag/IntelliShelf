@@ -1,119 +1,103 @@
-# IntelliShelf API
+# IntelliShelf
 
-IntelliShelf is a RESTful API for a digital library management system. It provides endpoints for managing books, users, and reading progress.
+A book management system with user authentication and book tracking features.
 
-## Features
+## GitHub Actions CI/CD Setup
 
-### Book Management
-- **Add Books**: Create new book entries with detailed information
-- **Edit Books**: Update book details and metadata
-- **Delete Books**: Remove books from the collection
-- **View Book Details**: Retrieve comprehensive information about each book
-- **Search Books**: Find books with powerful search functionality
-- **Filter Books**: Filter books by various criteria (genre, author, status, etc.)
+This project uses GitHub Actions for continuous integration and deployment. Here's how it works:
 
-### User Management
-- **User Authentication**: Secure login and registration system
-- **User Profiles**: Manage user profiles with reading preferences
-- **Role-Based Access**: Different permission levels for users and administrators
+### Workflows
 
-### Reading Progress
-- **Reading Status**: Track books as "Want to Read", "Currently Reading", or "Read"
-- **Reading Progress**: Record progress through books
-- **Reading History**: View reading history and patterns
-- **Reading Goals**: Set and track reading goals
+1. **CI/CD Pipeline** (`.github/workflows/ci-cd.yml`)
+   - Runs on every push to main branch and pull requests
+   - Uses Supabase for database testing
+   - Installs dependencies
+   - Runs linting
+   - Runs tests
+   - Builds the application
+   - Uploads test coverage as an artifact
 
-## Technology Stack
+2. **Deployment** (`.github/workflows/deploy.yml`)
+   - Runs only when code is pushed to the main branch
+   - Builds a Docker image
+   - Pushes the image to Docker Hub
+   - Tags the image with both 'latest' and the commit SHA
 
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL (hosted on Supabase)
-- **Authentication**: JWT (JSON Web Tokens)
-- **API**: RESTful API architecture
-- **Testing**: Jest
-- **CI/CD**: Jenkins
+### How to Use
 
-## Getting Started
+1. **Push your code to GitHub**
+   - The CI/CD pipeline will automatically run on every push to the main branch
+   - You can view the workflow runs in the "Actions" tab of your GitHub repository
 
-### Prerequisites
+2. **Configure Secrets**
+   - Go to your repository settings > Secrets and variables > Actions
+   - Add the following secrets:
+     - `SUPABASE_DATABASE_URL`: Your Supabase PostgreSQL connection string
+     - `JWT_SECRET`: Secret key for JWT token generation
+     - `DOCKER_HUB_USERNAME`: Your Docker Hub username
+     - `DOCKER_HUB_TOKEN`: Your Docker Hub access token (create an access token at https://hub.docker.com/settings/security)
 
-- Node.js (v14 or higher)
-- npm or yarn
-- Supabase account
+3. **Pull and Run the Docker Image**
+   - After deployment, you can pull and run the image from Docker Hub:
+     ```bash
+     docker pull yourusername/intellishelf:latest
+     docker run -p 3000:3000 -e DATABASE_URL=your_database_url -e JWT_SECRET=your_jwt_secret yourusername/intellishelf:latest
+     ```
 
-### Installation
+## Local Development
 
-1. Clone the repository
-   ```
-   git clone https://github.com/the7ag/intellishelf.git
-   cd intellishelf
-   ```
+```bash
+# Install dependencies
+npm install
 
-2. Install dependencies
-   ```
-   npm install
-   ```
+# Run in development mode
+npm run dev
 
-3. Set up environment variables
-   Create a `.env` file in the root directory with the following variables:
-   ```
-   PORT=3001
-   DATABASE_URL=postgresql://postgres.alukijmszwbqlfsxpivz:6ZtWNjOR485J6j9R@aws-0-eu-west-2.pooler.supabase.com:5432/postgres
-   JWT_SECRET="random_String_1234567890"
-   ```
-
-4. Start the development server
-   ```
-   npm run dev
-   ```
-
-5. The API will be available at `http://localhost:3001`
-
-## API Documentation
-
-The API documentation is available at `/api-docs` when running the server.
-
-### Key Endpoints
-
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
-- `GET /api/books` - Get all books
-- `POST /api/books` - Add a new book
-- `GET /api/books/:id` - Get a specific book
-- `PUT /api/books/:id` - Update a book
-- `DELETE /api/books/:id` - Delete a book
-
-## Testing
-
-Run the test suite with:
-
-```
+# Run tests
 npm test
+
+# Run linting
+npm run lint
 ```
 
-## Deployment
+## Environment Variables
 
-The API is already deployed and accessible at [https://intellishelf-api.example.com](https://intellishelf-api.example.com)
+Create a `.env` file in the root directory with the following variables:
 
-## CI/CD Pipeline
+```
+DATABASE_URL=postgres://username:password@db.supabase.co:5432/postgres
+JWT_SECRET=your_jwt_secret
+```
 
-IntelliShelf uses Jenkins for continuous integration and deployment:
+## Supabase Integration
 
-- **Continuous Integration**: Automated testing and building on every code push
-- **Continuous Deployment**: Automatic deployment to production environment
-- **Quality Gates**: Code quality checks and security scanning
+This project uses Supabase for PostgreSQL database hosting. To set up Supabase:
 
-## Contributing
+1. Create an account at [Supabase](https://supabase.com/)
+2. Create a new project
+3. Get your database connection string from the project settings
+4. Add the connection string to your environment variables
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Docker Deployment
 
-## License
+This project is containerized using Docker and can be deployed to any environment that supports Docker.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Local Docker Development
 
-## Contact
+```bash
+# Build the development image
+docker build -t intellishelf:dev --target development .
 
-Project Link: [https://github.com/the7ag/intellishelf](https://github.com/the7ag/intellishelf) 
+# Run the development container
+docker run -p 3001:3001 -e DATABASE_URL=your_database_url -e JWT_SECRET=your_jwt_secret intellishelf:dev
+```
+
+### Production Docker Deployment
+
+```bash
+# Build the production image
+docker build -t intellishelf:prod --target production .
+
+# Run the production container
+docker run -p 3000:3000 -e DATABASE_URL=your_database_url -e JWT_SECRET=your_jwt_secret intellishelf:prod
+``` 
