@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
     
     steps:
     - uses: actions/checkout@v3
@@ -22,6 +21,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
     
     - name: Build and push Docker image
+      id: docker_build
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -33,30 +33,4 @@ jobs:
         cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/intellishelf:buildcache,mode=max
     
     - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
-    
-    # Uncomment and configure the following steps based on your deployment target
-    # For example, to deploy to a cloud provider or your own server
-    
-    # - name: Login to Docker Hub
-    #   uses: docker/login-action@v2
-    #   with:
-    #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-    #     password: ${{ secrets.DOCKER_HUB_TOKEN }}
-    
-    # - name: Push Docker image
-    #   run: |
-    #     docker tag intellishelf ${{ secrets.DOCKER_HUB_USERNAME }}/intellishelf:latest
-    #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/intellishelf:latest
-    
-    # - name: Deploy to server
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ${{ secrets.SERVER_HOST }}
-    #     username: ${{ secrets.SERVER_USERNAME }}
-    #     key: ${{ secrets.SERVER_SSH_KEY }}
-    #     script: |
-    #       cd /path/to/deployment
-    #       docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/intellishelf:latest
-    #       docker-compose down
-    #       docker-compose up -d 
+      run: echo ${{ steps.docker_build.outputs.digest }} 
