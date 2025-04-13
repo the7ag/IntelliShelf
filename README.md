@@ -1,10 +1,92 @@
-# IntelliShelf
+# 📚 IntelliShelf
 
-A book management system with user authentication and book tracking features.
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" alt="Express.js" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions" />
+</div>
 
-## GitHub Actions CI/CD Setup
+## 📋 Overview
 
-This project uses GitHub Actions for continuous integration and deployment. Here's how it works:
+IntelliShelf is a modern book management system that helps users organize, track, and manage their personal book collections. Built with Node.js, Express, and PostgreSQL (hosted on Supabase), it provides a robust API for book-related operations with user authentication.
+
+## ✨ Features
+
+- 🔐 **User Authentication**: Secure login and registration system
+- 📚 **Book Management**: Add, update, delete, and search books
+- 🔍 **Advanced Search**: Find books by title, author, genre, or status
+- 📊 **Reading Statistics**: Track reading progress and history
+- 🔄 **API Integration**: RESTful API for frontend integration
+- 🚀 **Docker Support**: Containerized for easy deployment
+- 🔄 **CI/CD Pipeline**: Automated testing and deployment with GitHub Actions
+
+## 🛠️ Tech Stack
+
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL (hosted on Supabase)
+- **Authentication**: JWT (JSON Web Tokens)
+- **Containerization**: Docker
+- **CI/CD**: GitHub Actions
+- **Testing**: Jest, Supertest
+- **Linting**: ESLint
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Docker (optional, for containerized deployment)
+- Supabase account (for database)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/intellishelf.git
+   cd intellishelf
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory with the following variables:
+   ```
+   DATABASE_URL=postgres://username:password@db.supabase.co:5432/postgres
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. **Run the application**
+   ```bash
+   npm run dev
+   ```
+
+## 📁 Project Structure
+
+```
+intellishelf/
+├── src/                  # Source code
+│   ├── config/           # Configuration files
+│   ├── controllers/      # Request handlers
+│   ├── middleware/       # Custom middleware
+│   └── routes/           # API routes
+├── tests/                # Test files
+├── .github/              # GitHub configuration
+│   └── workflows/        # GitHub Actions workflows
+├── Dockerfile            # Docker configuration
+├── schema.sql            # Database schema
+└── server.js             # Application entry point
+```
+
+## 🔄 CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
 
 ### Workflows
 
@@ -44,41 +126,7 @@ This project uses GitHub Actions for continuous integration and deployment. Here
      docker run -p 3000:3000 -e DATABASE_URL=your_database_url -e JWT_SECRET=your_jwt_secret yourusername/intellishelf:latest
      ```
 
-## Local Development
-
-```bash
-# Install dependencies
-npm install
-
-# Run in development mode
-npm run dev
-
-# Run tests
-npm test
-
-# Run linting
-npm run lint
-```
-
-## Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
-```
-DATABASE_URL=postgres://username:password@db.supabase.co:5432/postgres
-JWT_SECRET=your_jwt_secret
-```
-
-## Supabase Integration
-
-This project uses Supabase for PostgreSQL database hosting. To set up Supabase:
-
-1. Create an account at [Supabase](https://supabase.com/)
-2. Create a new project
-3. Get your database connection string from the project settings
-4. Add the connection string to your environment variables
-
-## Docker Deployment
+## 🐳 Docker Deployment
 
 This project is containerized using Docker and can be deployed to any environment that supports Docker.
 
@@ -100,4 +148,63 @@ docker build -t intellishelf:prod --target production .
 
 # Run the production container
 docker run -p 3000:3000 -e DATABASE_URL=your_database_url -e JWT_SECRET=your_jwt_secret intellishelf:prod
-``` 
+```
+
+## 📊 Supabase Integration
+
+This project uses Supabase for PostgreSQL database hosting. To set up Supabase:
+
+1. Create an account at [Supabase](https://supabase.com/)
+2. Create a new project
+3. Get your database connection string from the project settings
+4. Add the connection string to your environment variables
+
+## 📝 API Documentation
+
+### Authentication Endpoints
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and get JWT token
+- `GET /api/auth/me` - Get current user profile
+
+### Book Endpoints
+
+- `GET /api/books` - Get all books (with pagination)
+- `GET /api/books/:id` - Get a specific book
+- `POST /api/books` - Create a new book
+- `PUT /api/books/:id` - Update a book
+- `DELETE /api/books/:id` - Delete a book
+- `GET /api/books/search` - Search books by title, author, or genre
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+## 📈 Future Enhancements
+
+- [ ] User profile customization
+- [ ] Reading lists and bookmarks
+- [ ] Book recommendations
+- [ ] Social sharing features
+- [ ] Mobile application
+- [ ] Integration with e-book platforms
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👥 Contributors
+
+- Your Name - Initial work
+
+## 🙏 Acknowledgments
+
+- Express.js team for the amazing framework
+- Supabase team for the PostgreSQL hosting
+- All contributors and users of IntelliShelf 
